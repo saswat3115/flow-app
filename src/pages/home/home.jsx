@@ -1,4 +1,10 @@
 import React from 'react';
+import Flow from '../../components/flow/flow';
+
+const flows = [
+    { id: 1, title: 'Flow 1', status: 'completed'},
+    { id: 2, title: 'Flow 2', status: 'pending'},
+];
 
 const Home = () => {
     return <div className="home">
@@ -14,7 +20,9 @@ const Home = () => {
             </div>
         </div>
         <div className="flows-container">
-            {/* TODO: List of Flows */}
+            {flows.map((item, index) => (
+                <Flow {...item} />
+            ))}
         </div>
     </div>;
 }
