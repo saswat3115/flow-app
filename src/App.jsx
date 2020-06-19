@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, withRouter } from 'react-router-dom';
 // import logo from './logo.svg';
 import Header from './components/header/header';
 import Login from './pages/login/login';
@@ -31,4 +31,4 @@ function App() {
   );
 }
 
-export default App;
+export default withRouter(App);

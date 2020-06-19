@@ -1,30 +1,74 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import Flow from '../../components/flow/flow';
+import { connect } from 'react-redux';
+import { addFlow, deleteFlow, toggleStatus } from '../../redux/flow-reducer/actions';
+import shortid from 'shortid';
 
-const flows = [
-    { id: 1, title: 'Flow 1', status: 'completed'},
-    { id: 2, title: 'Flow 2', status: 'pending'},
-];
 
-const Home = () => {
+const Home = ({ flows, addFlow, deleteFlow, toggleStatus }) => {
+
+    const [searchText, setSearchText] = useState('');
+    const [filterList, setFilterList] = useState([]);
+
+    const add = useCallback(() => {
+      const newId = shortid.generate();
+      addFlow({
+          id: newId,
+          title: `Untitled-${newId}`,
+          status: false,
+      });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    const onSearch = (text) => {
+        if (text) {
+          setFilterList(flows.filter(f => f.title.toLowerCase().indexOf(text.toLowerCase()) !== -1));
+        } else {
+          setFilterList([]);
+        }
+    }
+
     return <div className="home">
         <div className="row search-section">
             <div className="col">
-                <input type="text" placeholder="Search Workflow" className="input-search" />
+                <input
+                    type="text"
+                    placeholder="Search Workflow and press Enter"
+                    className="input-search"
+                    value={searchText}
+                    onChange={(e) => setSearchText(e.target.value)}
+                    onKeyDown={(e) => {
+                        e.keyCode === 13 && onSearch(searchText);
+                    }}
+                />
                 <span className="btn-filter">
-                    Filter
+                  <select>
+                     <option>All</option>
+                     <option>Pending</option>
+                     <option>Completed</option>
+                  </select>
                 </span>
             </div>
             <div className="col">
-                <button>Create Workflow</button>
+                <button onClick={() => add()}>Create Workflow</button>
             </div>
         </div>
         <div className="flows-container">
-            {flows.map((item, index) => (
-                <Flow {...item} />
+            {filterList.length > 0 ? filterList.map((item, index) => (
+                <Flow key={index} {...item} onDelete={deleteFlow} onStatusUpdate={toggleStatus} />
+            )) : flows.map((item, index) => (
+                <Flow key={index} {...item} onDelete={deleteFlow} onStatusUpdate={toggleStatus} />
             ))}
-        </div>
+        </div>  
     </div>;
 }
 
-export default Home;
+const mapStateToProps = (state) => ({
+  flows: state.flows
+});
+
+export default connect(mapStateToProps, {
+    addFlow,
+    deleteFlow,
+    toggleStatus
+})(Home);
