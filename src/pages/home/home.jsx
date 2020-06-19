@@ -4,8 +4,14 @@ import { connect } from 'react-redux';
 import { addFlow, deleteFlow, toggleStatus } from '../../redux/flow-reducer/actions';
 import shortid from 'shortid';
 
+const switchArray = (arr1, arr2) => {
+  if (arr1.length > 0) 
+    return arr1;
+  return arr2;
+}
 
-const Home = ({ flows, addFlow, deleteFlow, toggleStatus }) => {
+
+const Home = ({ history, flows, addFlow, deleteFlow, toggleStatus }) => {
 
     const [searchText, setSearchText] = useState('');
     const [filterList, setFilterList] = useState([]);
@@ -54,10 +60,13 @@ const Home = ({ flows, addFlow, deleteFlow, toggleStatus }) => {
             </div>
         </div>
         <div className="flows-container">
-            {filterList.length > 0 ? filterList.map((item, index) => (
-                <Flow key={index} {...item} onDelete={deleteFlow} onStatusUpdate={toggleStatus} />
-            )) : flows.map((item, index) => (
-                <Flow key={index} {...item} onDelete={deleteFlow} onStatusUpdate={toggleStatus} />
+            {switchArray(filterList, flows).map((item, index) => (
+                <Flow
+                    key={index}
+                    {...item}
+                    onDelete={deleteFlow}
+                    onStatusUpdate={toggleStatus}
+                    onGo={(id) => history.push(`/flow/${id}`)}/>
             ))}
         </div>  
     </div>;

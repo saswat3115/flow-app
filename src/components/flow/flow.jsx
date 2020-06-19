@@ -2,14 +2,20 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './flow.css';
 
-const Flow = ({ id, title, status, onDelete, onStatusUpdate }) => {
-    return <div className="flow">
+const Flow = ({ id, title, status, onDelete, onStatusUpdate, onGo }) => {
+    return <div className="flow" onClick={() => onGo(id)}>
         <div>{title}</div>
         <div>
             {status ? 'completed': 'pending'}
-            <span className="round" onClick={() => onStatusUpdate && onStatusUpdate(id)}>*</span>
+            <span className="round" onClick={(e) => {
+                e.stopPropagation();
+                onStatusUpdate && onStatusUpdate(id);
+            }}>*</span>
         </div>
-        <span className="round delete-icon" onClick={() => onDelete && onDelete(id)}>x</span>
+        <span className="round delete-icon" onClick={(e) => {
+             e.stopPropagation();
+             onDelete && onDelete(id);
+        }}>x</span>
     </div>;
 }
 
@@ -19,6 +25,7 @@ Flow.propTypes = {
     status: PropTypes.bool.isRequired,
     onDelete: PropTypes.func,
     onStatusUpdate: PropTypes.func,
+    onGo: PropTypes.func,
 };
 
 export default Flow;

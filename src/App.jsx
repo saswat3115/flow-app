@@ -10,7 +10,7 @@ import Flows from './pages/flows/flows';
 const router = [
   { path: '/', component: Login },
   { path: '/home', component: Home },
-  { path: '/flows', component: Flows }
+  { path: '/flow/:id', component: Flows }
 ];
 
 function App() {
