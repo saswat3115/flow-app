@@ -2,6 +2,10 @@
   margin: 16px;
 }
 
+.node .card-body {
+  min-height: 150px;
+}
+
 .card-header input,
 .card-body textarea {
   border: none;
@@ -11,7 +15,7 @@
 }
 
 .card-body textarea {
-  height: 100%;
+  min-height: 100px;
   width: 100%;
   font-size: 12px;
 }

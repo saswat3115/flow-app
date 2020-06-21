@@ -12,6 +12,7 @@ const Node = ({ id, title, content, status, onStatusUpdate }) => {
             <textarea
               defaultValue={content}
               placeholder="Task content goes here ..."
+              autoFocus={true}
             >
              </textarea>
           </div>

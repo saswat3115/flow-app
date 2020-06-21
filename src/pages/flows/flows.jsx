@@ -25,7 +25,9 @@ const Flows = ({ match, history, flowTitle, nodes, addNode, updateNodeStatus, de
           </div>
         </div>
       </div>
-
+      <div>
+        <p className="task-hint">Click in title/content of task card to edit</p>
+      </div>
       <div className="node-container">
         {nodes.map((item, index) => (
             <Node

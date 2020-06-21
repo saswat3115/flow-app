@@ -19,6 +19,13 @@
     margin-left: 8px;
 }
 
+.task-hint {
+    padding: 0 16px;
+    margin-bottom: 0;
+    font-size: 12px;
+    font-style: italic;
+    color: gray;
+}
 
 /* mobile and tab device related css */
 
