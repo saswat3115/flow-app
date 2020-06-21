@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import Flow from '../../components/flow/flow';
 import { connect } from 'react-redux';
-import { addFlow, deleteFlow, toggleStatus } from '../../redux/flow-reducer/actions';
+import { addFlow, deleteFlow, toggleStatus, validateNodesCompletion } from '../../redux/flow-reducer/actions';
 import shortid from 'shortid';
 import './home.css';
 
@@ -97,7 +97,17 @@ const Home = ({ history, flows, addFlow, deleteFlow, toggleStatus }) => {
                   key={index}
                   {...item}
                   onDelete={deleteFlow}
-                  onStatusUpdate={toggleStatus}
+                  onStatusUpdate={(id) => {
+                    if (!item.status) {
+                      if (validateNodesCompletion(item.nodes)) {
+                        toggleStatus(id);
+                      } else {
+                        alert('Not all tasks are complete for this Flow');
+                      }
+                    } else {
+                      toggleStatus(id);
+                    }
+                  }}
                   onGo={(id) => history.push(`/flow/${id}`)}/>
             ))}
             {isFiltered && filterList.length === 0

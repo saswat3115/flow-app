@@ -33,3 +33,14 @@ export const suffleNodes = (flowId) => ({
   type: 'SUFFLE_NODES',
   flowId,
 });
+
+export const validateNodesCompletion = (nodes) => {
+  let allNodes = nodes || [];
+  let validCount = 0;
+  allNodes.forEach((item) => {
+    if (item.status === 'completed') {
+      validCount = validCount + 1;
+    }
+  });
+  return validCount === allNodes.length;
+}
