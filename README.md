@@ -1,4 +1,8 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## FLOW-APP
+
+See demo here [https://task-flow-app.herokuapp.com/]
+
+Login using ur email and password can be anything. (Password is bypassed now becasue of demo app)
 
 ## Available Scripts
 
