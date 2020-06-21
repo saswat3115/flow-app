@@ -1,24 +1,32 @@
 import { getInitialFlow } from '../../database/db';
 import shuffle from 'lodash/shuffle';
+import { syncFlowToDB } from '../../database/db';
 
 const initialState = getInitialFlow();
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
-      case 'ADD_FLOW':
-        return [
+      case 'ADD_FLOW': {
+        const newState = [
             ...state,
             action.payload
+          ];
+        syncFlowToDB(newState);
+        return newState;
+      }
+      case 'DELETE_FLOW': {
+        const newState = [
+          ...state.filter(f => f.id !== action.payload)
         ];
-      case 'DELETE_FLOW':
-        return [
-            ...state.filter(f => f.id !== action.payload)
-        ];
+        syncFlowToDB(newState);
+        return newState;
+      }
       case 'TOGGLE_STATUS':
         let flow = state.find((f) => f.id === action.payload);
         if (flow) {
           flow.status = !flow.status;
         }
+        syncFlowToDB([...state]);
         return [
           ...state
         ];

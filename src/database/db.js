@@ -5,8 +5,8 @@ const retriveFlowsFromLocalstorage = () => {
     return existing ? JSON.parse(existing) : [];
 }
 
-const syncFlow = (data) => {
-  localStorage.setItem('flow', data);
+export const syncFlowToDB = (data) => {
+  localStorage.setItem('flow', JSON.stringify(data));
 }
 
 export const getInitialFlow = () => {
@@ -23,13 +23,13 @@ export const getInitialFlow = () => {
 export const addFlow = (flow) => {
     let existing = retriveFlowsFromLocalstorage();
     existing.push(flow);
-    syncFlow(existing);
+    syncFlowToDB(existing);
     return flow;
 }
 
 export const deleteFlow = (id) => {
     let existing = retriveFlowsFromLocalstorage();
-    syncFlow(existing.filter(f => f.id !== id));
+    syncFlowToDB(existing.filter(f => f.id !== id));
     return id;
 }
 
@@ -37,6 +37,6 @@ export const updateFlowStatus = (id) => {
     let existing = retriveFlowsFromLocalstorage();
     let culprit = existing.find(f => f.id === id);
     culprit.status = !!culprit.status;
-    syncFlow(existing);
+    syncFlowToDB(existing);
     return culprit;
 }
