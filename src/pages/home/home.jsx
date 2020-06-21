@@ -61,9 +61,15 @@ const Home = ({ history, flows, addFlow, deleteFlow, toggleStatus }) => {
                   <input
                     type="text"
                     className="form-control"
-                    placeholder="Search Workflow and press Enter"
+                    placeholder="Search workflow and press enter"
                     value={searchText}
-                    onChange={(e) => setSearchText(e.target.value)}
+                    onChange={(e) => {
+                      const txt = e.target.value;
+                      setSearchText(txt);
+                      if (!txt) { // check if text is clrear then trigger search clear
+                        onSearch(null);
+                      }
+                    }}
                     onKeyDown={(e) => {
                         e.keyCode === 13 && onSearch(searchText);
                     }}

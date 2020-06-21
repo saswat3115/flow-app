@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import './login.css';
 import { authenticate } from '../../redux/auth-reducer/reducer';
 import { connect } from 'react-redux';
@@ -6,6 +6,14 @@ import { connect } from 'react-redux';
 const Login = ({ history, authenticate }) => {
 
   const [email, setEmail] = useState('');
+
+  useEffect(() => {
+    const email = localStorage.getItem('email');
+    if (email) {
+      history.push('/home');
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const login = useCallback((emailId) => {
     authenticate({

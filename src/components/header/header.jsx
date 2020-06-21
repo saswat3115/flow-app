@@ -11,6 +11,7 @@ const Header = () => {
                 className="btn btn-outline-warning my-2 my-sm-0"
                 onClick={(e) => {
                   e.preventDefault();
+                  localStorage.removeItem('email');
                   window.location.replace('/');
                 }}
               >
