@@ -16,10 +16,15 @@ const Login = ({ history, authenticate }) => {
   }, []);
 
   const login = useCallback((emailId) => {
-    authenticate({
-      email: emailId,
-    });
-    history.push('/home');
+    if (emailId) {
+      authenticate({
+        email: emailId,
+      });
+      history.push('/home');
+    } else {
+      alert('Email is mandatory !');
+    }
+    
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -36,6 +41,7 @@ const Login = ({ history, authenticate }) => {
                     className="form-control"
                     placeholder="Email"
                     value={email}
+                    required
                     onChange={(e) => setEmail(e.target.value)}
                   />
                   </div>
@@ -43,10 +49,10 @@ const Login = ({ history, authenticate }) => {
                     <input
                       type="password"
                       className="form-control"
-                      placeholder="Password"
+                      placeholder="Enter any password to continue"
                     />
                   </div>
-                  <button className="btn btn-primary" onClick={() => login(email)}>Login</button>
+                  <button className="btn btn-primary btn-login" onClick={() => login(email)}>Login</button>
                 </div>
               </div>
           </div>

@@ -3,3 +3,19 @@
     margin: 0 auto;
     margin-top: 5%;
 }
+
+.login-section .card-header {
+    background: #a781ee;;
+    color: white;
+    font-weight: 600;
+}
+
+.btn-login {
+    background: #a781ee;
+    border-color: #a781ee;
+}
+
+.btn-login:hover {
+    background: #573991;
+    border-color: #573991;
+}
