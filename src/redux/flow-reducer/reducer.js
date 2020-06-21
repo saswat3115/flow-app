@@ -98,8 +98,7 @@ const suffleNodes = (state, flowId) => {
   let flow = state.find(f => f.id === flowId);
   if (flow) {
     let nodes = [...flow.nodes];
-    nodes = shuffle(nodes);
-    flow.nodes = [...nodes];
+    flow.nodes = [...shuffle(nodes)];
     return state;
   }
   return state;
