@@ -1,0 +1,40 @@
+.node-container {
+    display: flex;
+    flex-flow: wrap;
+}
+
+.flow-title {
+    padding: 16px;
+}
+
+.flow-title input {
+    width: 50%;
+}
+
+.button-container {
+    text-align: right;
+}
+
+.button-container .btn {
+    margin-left: 8px;
+}
+
+
+/* mobile and tab device related css */
+
+@media only screen and (max-width: 768px) {
+    .flow-title input {
+        width: 100%;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .button-container {
+        text-align: left;
+        padding-top: 8px;
+    }
+
+    .card {
+        width: 100%;
+    }
+}

@@ -2,6 +2,7 @@ import React, { useCallback } from 'react';
 import { connect } from 'react-redux';
 import Node from '../../components/node/node';
 import { addNode, updateNodeStatus, deleteNode, suffleNodes } from '../../redux/flow-reducer/actions';
+import './flows.css';
 
 const Flows = ({ match, history, flowTitle, nodes, addNode, updateNodeStatus, deleteNode, suffleNodes }) => {
   const addNewNode = useCallback((flowId) => {
@@ -11,19 +12,29 @@ const Flows = ({ match, history, flowTitle, nodes, addNode, updateNodeStatus, de
   }, []);
 
   return <div>
-      <input type="text" defaultValue={flowTitle} />
+      <div className="row no-gutters flow-title">
+        <div className="col-md-6 col-sm-12">
+          <input type="text" className="form-control" defaultValue={flowTitle} />
+        </div>
+        <div className="col-md-6 col-sm-12">
+          <div className="button-container">
+            <button className="btn btn-secondary" onClick={() => suffleNodes(match?.params.id)}>Suffle</button>
+            <button className="btn btn-success" onClick={() => addNewNode(match?.params.id)}>Add</button>
+            <button className="btn btn-danger" onClick={() => deleteNode(match?.params.id)}>Delete</button>
+            <button className="btn btn-primary" onClick={() => history.push('/home')}>Save</button>
+          </div>
+        </div>
+      </div>
 
-      {nodes.map((item, index) => (
-          <Node
-            key={`${item.id}-${index}`}
-            {...item}
-            onStatusUpdate={(id) => updateNodeStatus(id, match?.params.id)}
-          />
-      ))}
-      <button className="btn" onClick={() => suffleNodes(match?.params.id)}>Suffle</button>
-      <button className="btn" onClick={() => addNewNode(match?.params.id)}>Add</button>
-      <button className="btn" onClick={() => deleteNode(match?.params.id)}>Delete</button>
-      <button className="btn" onClick={() => history.push('/home')}>Save</button>
+      <div className="node-container">
+        {nodes.map((item, index) => (
+            <Node
+              key={`${item.id}-${index}`}
+              {...item}
+              onStatusUpdate={(id) => updateNodeStatus(id, match?.params.id)}
+            />
+        ))}
+      </div>
   </div>
 };
 
