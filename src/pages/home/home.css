@@ -1,0 +1,12 @@
+.flows-container {
+    display: flex;
+    flex-flow: wrap;
+}
+
+.search-section {
+    padding: 16px;
+}
+
+.btn-filter {
+    font-size: 13px;
+}

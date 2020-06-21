@@ -1,3 +1,41 @@
 .delete-icon {
     cursor: pointer;
 }
+
+.flow {
+    min-width: 200px;
+    border-radius: 3px;
+    margin: 16px;
+    box-shadow: 0px 2px 3px gray;
+    cursor: pointer;
+    transition: all .2s ease-in-out;
+}
+
+.flow:hover {
+    box-shadow: 0px 4px 5px rgb(97, 95, 95);
+}
+
+.flow .title {
+    background: #a782ee;
+    padding: 8px;
+    color: white;
+    font-size: 12px;
+    font-weight: 600;
+
+}
+
+.flow .status {
+  font-size: 14px;
+  display: inline-block;
+  width: 70%;
+}
+
+.flow .flow-content {
+    padding: 12px;
+}
+
+@media only screen and (max-width: 600px) {
+    .flow {
+        width: 100%;
+    }
+}

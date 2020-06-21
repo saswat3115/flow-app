@@ -15,7 +15,7 @@ const router = [
 
 function App() {
   return (
-    <div className="App">
+    <div className="container-fluid">
       <Header />
       <Switch>
         {router.map((item, index) => (

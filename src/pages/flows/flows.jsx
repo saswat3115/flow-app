@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import Node from '../../components/node/node';
 import { addNode, updateNodeStatus, deleteNode, suffleNodes } from '../../redux/flow-reducer/actions';
 
-const Flows = ({ match, flowTitle, nodes, addNode, updateNodeStatus, deleteNode, suffleNodes }) => {
+const Flows = ({ match, history, flowTitle, nodes, addNode, updateNodeStatus, deleteNode, suffleNodes }) => {
   const addNewNode = useCallback((flowId) => {
     addNode(flowId);
     console.log('fired');
@@ -23,7 +23,7 @@ const Flows = ({ match, flowTitle, nodes, addNode, updateNodeStatus, deleteNode,
       <button className="btn" onClick={() => suffleNodes(match?.params.id)}>Suffle</button>
       <button className="btn" onClick={() => addNewNode(match?.params.id)}>Add</button>
       <button className="btn" onClick={() => deleteNode(match?.params.id)}>Delete</button>
-      <button className="btn">Save</button>
+      <button className="btn" onClick={() => history.push('/home')}>Save</button>
   </div>
 };
 
