@@ -5,31 +5,27 @@ import { syncFlowToDB } from '../../database/db';
 const initialState = getInitialFlow();
 
 const reducer = (state = initialState, action) => {
+    let newState = [];
     switch (action.type) {
-      case 'ADD_FLOW': {
-        const newState = [
+      case 'ADD_FLOW': 
+        newState = [
             ...state,
             action.payload
-          ];
-        syncFlowToDB(newState);
-        return newState;
-      }
-      case 'DELETE_FLOW': {
-        const newState = [
+        ];
+        break;
+      case 'DELETE_FLOW':
+        newState = [
           ...state.filter(f => f.id !== action.payload)
         ];
-        syncFlowToDB(newState);
-        return newState;
-      }
-      case 'TOGGLE_STATUS':
+        break;
+      case 'TOGGLE_STATUS': {
         let flow = state.find((f) => f.id === action.payload);
         if (flow) {
           flow.status = !flow.status;
         }
-        syncFlowToDB([...state]);
-        return [
-          ...state
-        ];
+        newState = [...state];
+      } 
+        break;
       case 'ADD_NEW_NODE': {
         let flow = state.find(f => f.id === action.flowId);
         if (flow) {
@@ -41,25 +37,31 @@ const reducer = (state = initialState, action) => {
             status: 'pending'
           }];
           flow.nodes = nodes;
-          return [...state];
         }
-        return state;
+        newState = [...state];
       }
+        break;
       case 'UPDATE_NODE_STATUS': 
-        return [
+        newState = [
           ...updateNodeStatus(state, action.flowId, action.payload)
         ];
+        break;
       case 'DELETE_NODE':
-        return [
+        newState = [
           ...deleteNode(state, action.flowId),
         ];
+        break;
       case 'SUFFLE_NODES':
-        return [
+        newState = [
           ...suffleNodes(state, action.flowId),
-        ]
+        ];
+        break;
       default:
         return state;
     }
+
+    syncFlowToDB(newState);
+    return newState;
 }
 
 const updateNodeStatus =  (state, flowId, nodeId) => {
