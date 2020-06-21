@@ -15,7 +15,8 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
     "redux": "^4.0.5",
-    "shortid": "^2.2.15"
+    "shortid": "^2.2.15",
+    "use-debounce": "^3.4.2"
   },
   "scripts": {
     "start": "react-scripts start",

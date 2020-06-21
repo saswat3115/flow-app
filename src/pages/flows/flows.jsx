@@ -1,10 +1,24 @@
 import React, { useCallback } from 'react';
 import { connect } from 'react-redux';
 import Node from '../../components/node/node';
-import { addNode, updateNodeStatus, deleteNode, suffleNodes } from '../../redux/flow-reducer/actions';
+import {
+  addNode,
+  updateNodeStatus,
+  deleteNode,
+  suffleNodes,
+  updateFlowTitle,
+  updateNodeTitle,
+  updateNodeContent,
+ } from '../../redux/flow-reducer/actions';
 import './flows.css';
+import { useDebouncedCallback } from 'use-debounce';
 
-const Flows = ({ match, history, flowTitle, nodes, addNode, updateNodeStatus, deleteNode, suffleNodes }) => {
+const Flows = ({ match, history, flowTitle, nodes, addNode,
+  updateNodeStatus, deleteNode, suffleNodes, updateFlowTitle, updateNodeTitle, updateNodeContent }) => {
+  const [debounceTitleChange] = useDebouncedCallback((val) => {
+    updateFlowTitle(match?.params.id, val);
+  }, 500);
+
   const addNewNode = useCallback((flowId) => {
     addNode(flowId);
     console.log('fired');
@@ -14,7 +28,12 @@ const Flows = ({ match, history, flowTitle, nodes, addNode, updateNodeStatus, de
   return <div>
       <div className="row no-gutters flow-title">
         <div className="col-md-6 col-sm-12">
-          <input type="text" className="form-control" defaultValue={flowTitle} />
+          <input
+            type="text"
+            className="form-control"
+            defaultValue={flowTitle}
+            onChange={(e) => debounceTitleChange(e.target.value)}
+          />
         </div>
         <div className="col-md-6 col-sm-12">
           <div className="button-container">
@@ -26,7 +45,6 @@ const Flows = ({ match, history, flowTitle, nodes, addNode, updateNodeStatus, de
                 deleteNode(match?.params.id);
               }
             }}>Delete</button>
-            <button className="btn btn-primary" onClick={() => history.push('/home')}>Save</button>
           </div>
         </div>
       </div>
@@ -39,6 +57,8 @@ const Flows = ({ match, history, flowTitle, nodes, addNode, updateNodeStatus, de
               key={`${item.id}-${index}`}
               {...item}
               onStatusUpdate={(id) => updateNodeStatus(id, match?.params.id)}
+              onTitleChange={(text) => updateNodeTitle(match?.params.id, item.id, text)}
+              onContentChange={(text) => updateNodeContent(match?.params.id, item.id, text)}
             />
         ))}
       </div>
@@ -57,5 +77,8 @@ export default connect(mapStateToProps, {
     addNode,
     updateNodeStatus,
     deleteNode,
-    suffleNodes
+    suffleNodes,
+    updateFlowTitle,
+    updateNodeTitle,
+    updateNodeContent
 })(Flows);

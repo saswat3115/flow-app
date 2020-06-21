@@ -55,6 +55,21 @@ const reducer = (state = initialState, action) => {
           ...suffleNodes(state, action.flowId),
         ];
         break;
+      case 'UPDATE_FLOW_TITLE':
+        newState = [
+          ...updateFlowTitlwState(state, action.flowId, action.payload),
+        ];
+        break;
+      case 'UPDATE_NODE_TITLE':
+        newState = [
+          ...updateNodeTitleState(state, action.flowId, action.nodeId, action.payload),
+        ];
+        break;
+      case 'UPDATE_NODE_CONTENT':
+        newState = [
+          ...updateNodeContentState(state, action.flowId, action.nodeId, action.payload),
+        ];
+        break;
       default:
         return state;
     }
@@ -111,6 +126,43 @@ const suffleNodes = (state, flowId) => {
     return state;
   }
   return state;
+}
+
+const updateNodeTitleState = (state, flowId, nodeId, title) => {
+  let flow = state.find(f => f.id === flowId);
+  if (flow) {
+    let nodes = [...flow.nodes];
+    let node = nodes.find(n => n.id === nodeId);
+    if (node) {
+      node.title = title;
+      flow.nodes = [...nodes];
+      return [
+        ...state
+      ];
+    }
+  } return state;
+}
+
+const updateFlowTitlwState = (state, flowId, title) => {
+  let flow = state.find(f => f.id === flowId);
+  if (flow) {
+    flow.title = title;
+  } return state;
+}
+
+const updateNodeContentState = (state, flowId, nodeId, content) => {
+  let flow = state.find(f => f.id === flowId);
+  if (flow) {
+    let nodes = [...flow.nodes];
+    let node = nodes.find(n => n.id === nodeId);
+    if (node) {
+      node.content = content;
+      flow.nodes = [...nodes];
+      return [
+        ...state
+      ];
+    }
+  } return state;
 }
 
 export default reducer;

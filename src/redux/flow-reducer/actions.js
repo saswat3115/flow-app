@@ -34,6 +34,26 @@ export const suffleNodes = (flowId) => ({
   flowId,
 });
 
+export const updateFlowTitle = (flowId, title) => ({
+  type: 'UPDATE_FLOW_TITLE',
+  flowId,
+  payload: title,
+});
+
+export const updateNodeTitle = (flowId, nodeId, title) => ({
+  type: 'UPDATE_NODE_TITLE',
+  flowId,
+  nodeId,
+  payload: title
+});
+
+export const updateNodeContent = (flowId, nodeId, content) => ({
+  type: 'UPDATE_NODE_CONTENT',
+  flowId,
+  nodeId,
+  payload: content,
+});
+
 export const validateNodesCompletion = (nodes) => {
   let allNodes = nodes || [];
   let validCount = 0;
