@@ -20,7 +20,7 @@ const Flow = ({ id, title, status, onDelete, onStatusUpdate, onGo }) => {
 }
 
 Flow.propTypes = {
-    id: PropTypes.number.isRequired,
+    id: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     status: PropTypes.bool.isRequired,
     onDelete: PropTypes.func,

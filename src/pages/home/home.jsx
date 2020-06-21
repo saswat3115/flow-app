@@ -22,6 +22,12 @@ const Home = ({ history, flows, addFlow, deleteFlow, toggleStatus }) => {
           id: newId,
           title: `Untitled-${newId}`,
           status: false,
+          nodes: [{
+            id: 1,
+            title: 'Task 1',
+            content: '',
+            status: 'pending'
+          }]
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);

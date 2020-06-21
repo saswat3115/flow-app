@@ -1,0 +1,7 @@
+.node {
+  max-width: 200px;
+}
+
+.node textarea {
+    display: block;
+}
