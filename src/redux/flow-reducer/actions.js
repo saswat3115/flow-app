@@ -13,10 +13,9 @@ export const toggleStatus = (id) => ({
   payload: id,
 });
 
-export const addNode = (flowId, payload) => ({
+export const addNode = (flowId) => ({
   type: 'ADD_NEW_NODE',
   flowId,
-  payload,
 });
 
 export const updateNodeStatus = (id, flowId) => ({
@@ -27,5 +26,10 @@ export const updateNodeStatus = (id, flowId) => ({
 
 export const deleteNode = (flowId) => ({
   type: 'DELETE_NODE',
+  flowId,
+});
+
+export const suffleNodes = (flowId) => ({
+  type: 'SUFFLE_NODES',
   flowId,
 });

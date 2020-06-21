@@ -1,4 +1,5 @@
 import { getInitialFlow } from '../../database/db';
+import shuffle from 'lodash/shuffle';
 
 const initialState = getInitialFlow();
 
@@ -24,7 +25,13 @@ const reducer = (state = initialState, action) => {
       case 'ADD_NEW_NODE': {
         let flow = state.find(f => f.id === action.flowId);
         if (flow) {
-          let nodes = [...flow.nodes, action.payload];
+          let newNodeId = flow.nodes.length + 1;
+          let nodes = [...flow.nodes, {
+            id: newNodeId,
+            title: `Task ${newNodeId}`,
+            content: '',
+            status: 'pending'
+          }];
           flow.nodes = nodes;
           return [...state];
         }
@@ -38,6 +45,10 @@ const reducer = (state = initialState, action) => {
         return [
           ...deleteNode(state, action.flowId),
         ];
+      case 'SUFFLE_NODES':
+        return [
+          ...suffleNodes(state, action.flowId),
+        ]
       default:
         return state;
     }
@@ -81,6 +92,17 @@ const deleteNode = (state, flowId) => {
       ...state
     ];
   } return state;
+}
+
+const suffleNodes = (state, flowId) => {
+  let flow = state.find(f => f.id === flowId);
+  if (flow) {
+    let nodes = [...flow.nodes];
+    nodes = shuffle(nodes);
+    flow.nodes = [...nodes];
+    return state;
+  }
+  return state;
 }
 
 export default reducer;
