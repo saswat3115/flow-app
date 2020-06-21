@@ -1,8 +1,8 @@
 import React from 'react';
 import './header.css';
-import { connect } from 'react-redux';
 
-const Header = ({ email }) => {
+const Header = () => {
+  const email = localStorage.getItem('email');
   return <nav className="navbar navbar-dark">
            <a className="navbar-brand" href="/">Flow App</a>
            {email && 
@@ -21,8 +21,5 @@ const Header = ({ email }) => {
          </nav>;
 }
 
-const mapStateToProps = (state) => ({
-  email: state.auth.email
-});
 
-export default connect(mapStateToProps)(Header);
+export default Header;

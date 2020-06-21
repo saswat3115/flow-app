@@ -10,3 +10,19 @@
 .btn-filter {
     font-size: 13px;
 }
+
+.btn-add {
+    float: right;
+}
+
+@media only screen and (max-width: 600px) {
+    .btn-add {
+        float: left;
+        margin-top: 8px;
+        width: 100%;
+    }
+
+    .btn-filter {
+        float: right;
+    }
+}

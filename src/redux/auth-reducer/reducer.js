@@ -5,6 +5,7 @@ const intitalData = {
 const reducer = (state = intitalData, action) => {
     switch (action.type) {
         case 'AUTH_SUCCESS':
+            localStorage.setItem('email', action.paylaod.email);
             return {
                 ...state,
                 email: action.paylaod.email

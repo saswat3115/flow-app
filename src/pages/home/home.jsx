@@ -82,7 +82,7 @@ const Home = ({ history, flows, addFlow, deleteFlow, toggleStatus }) => {
                 </span>
             </div>
             <div className="col-md-6 col-sm-12">
-                <button className="btn btn-success float-right" onClick={() => add()}>+ Create Workflow</button>
+                <button className="btn btn-success btn-add" onClick={() => add()}>+ Create Workflow</button>
             </div>
         </div>
         <div className="flows-container">
