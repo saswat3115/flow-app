@@ -1,6 +1,5 @@
-import { getInitialFlow } from '../../database/db';
+import { getInitialFlow, syncFlowToDB } from '../../database/db';
 import shuffle from 'lodash/shuffle';
-import { syncFlowToDB } from '../../database/db';
 
 const initialState = getInitialFlow();
 
