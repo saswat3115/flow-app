@@ -102,7 +102,7 @@ const Home = ({ history, flows, addFlow, deleteFlow, toggleStatus }) => {
                       if (validateNodesCompletion(item.nodes)) {
                         toggleStatus(id);
                       } else {
-                        alert('Not all tasks are complete for this Flow');
+                        alert('Not all tasks are completed for this Flow');
                       }
                     } else {
                       toggleStatus(id);

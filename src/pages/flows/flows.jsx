@@ -20,7 +20,12 @@ const Flows = ({ match, history, flowTitle, nodes, addNode, updateNodeStatus, de
           <div className="button-container">
             <button className="btn btn-secondary" onClick={() => suffleNodes(match?.params.id)}>Suffle</button>
             <button className="btn btn-success" onClick={() => addNewNode(match?.params.id)}>Add</button>
-            <button className="btn btn-danger" onClick={() => deleteNode(match?.params.id)}>Delete</button>
+            <button className="btn btn-danger" onClick={() => {
+              const confirmed = window.confirm('Delete operation will delete the last node. Are you sure ?');
+              if (confirmed) {
+                deleteNode(match?.params.id);
+              }
+            }}>Delete</button>
             <button className="btn btn-primary" onClick={() => history.push('/home')}>Save</button>
           </div>
         </div>
