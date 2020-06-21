@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import './node.css';
 
 const Node = ({ id, title, content, status, onStatusUpdate }) => {
-  return <div className="card bg-light mb-3">
+  return <div className="card bg-light mb-3 node">
           <div className="card-header">
             <input type="text" defaultValue={title} />
           </div>

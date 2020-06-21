@@ -1,17 +1,28 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import './header.css';
+import { connect } from 'react-redux';
 
-const Header = () => {
-  const logout = useCallback(() => {
-    window.location.replace('/');
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+const Header = ({ email }) => {
   return <nav className="navbar navbar-dark">
            <a className="navbar-brand" href="/">Flow App</a>
-           <form className="form-inline">
-            <button className="btn btn-outline-warning my-2 my-sm-0" onClick={logout}>Logout</button>
-           </form>
+           {email && 
+            <form className="form-inline">
+              <button
+                className="btn btn-outline-warning my-2 my-sm-0"
+                onClick={(e) => {
+                  e.preventDefault();
+                  window.location.replace('/');
+                }}
+              >
+                Logout
+              </button>
+            </form>
+          }
          </nav>;
 }
 
-export default Header;
+const mapStateToProps = (state) => ({
+  email: state.auth.email
+});
+
+export default connect(mapStateToProps)(Header);
