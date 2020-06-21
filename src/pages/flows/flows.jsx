@@ -45,6 +45,7 @@ const Flows = ({ match, history, flowTitle, nodes, addNode,
                 deleteNode(match?.params.id);
               }
             }}>Delete</button>
+            <button className="btn btn-primary" onClick={() => history.push('/home')}>Save</button>
           </div>
         </div>
       </div>
