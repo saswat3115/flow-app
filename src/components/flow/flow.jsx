@@ -14,10 +14,10 @@ const Flow = ({ id, title, status, onDelete, onStatusUpdate, onGo }) => {
                 }}
             />
         </div>
-        <span className="round delete-icon" onClick={(e) => {
+        <div className="round delete-icon" onClick={(e) => {
              e.stopPropagation();
              onDelete && onDelete(id);
-        }}>x</span>
+        }} />
     </div>;
 }
 
