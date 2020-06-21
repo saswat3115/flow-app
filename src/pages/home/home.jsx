@@ -5,10 +5,8 @@ import { addFlow, deleteFlow, toggleStatus } from '../../redux/flow-reducer/acti
 import shortid from 'shortid';
 import './home.css';
 
-const switchArray = (arr1, arr2) => {
-  if (arr1.length > 0) 
-    return arr1;
-  return arr2;
+const switchArray = (arr1, arr2, isFilter) => {
+  return isFilter ? arr1 : arr2;
 }
 
 
@@ -16,6 +14,7 @@ const Home = ({ history, flows, addFlow, deleteFlow, toggleStatus }) => {
 
     const [searchText, setSearchText] = useState('');
     const [filterList, setFilterList] = useState([]);
+    const [isFiltered, setIsFiltered] = useState(false);
 
     const add = useCallback(() => {
       const newId = shortid.generate();
@@ -36,15 +35,29 @@ const Home = ({ history, flows, addFlow, deleteFlow, toggleStatus }) => {
     const onSearch = (text) => {
         if (text) {
           setFilterList(flows.filter(f => f.title.toLowerCase().indexOf(text.toLowerCase()) !== -1));
+          setIsFiltered(true);
         } else {
           setFilterList([]);
+          setIsFiltered(false);
         }
     }
 
+    const onSearchByStatus = (text) => {
+      if (text) {
+        const status = text === 'Completed'; 
+        setFilterList(flows.filter(f => f.status === status));
+        setIsFiltered(true);
+      } else {
+        setIsFiltered(false);
+        setFilterList([]);
+      }
+      
+    }
+
     return <div className="home">
-        <div className="row search-section">
+        <div className="row no-gutters search-section">
             <div className="col-md-6 col-sm-12">
-                <div class="input-group mb-3">
+                <div className="input-group mb-3">
                   <input
                     type="text"
                     className="form-control"
@@ -55,16 +68,16 @@ const Home = ({ history, flows, addFlow, deleteFlow, toggleStatus }) => {
                         e.keyCode === 13 && onSearch(searchText);
                     }}
                   />
-                  <div class="input-group-append">
-                    <span class="input-group-text" id="basic-addon2">Search</span>
+                  <div className="input-group-append">
+                    <span className="input-group-text" id="basic-addon2">Search</span>
                   </div>
                 </div>
                 <span className="btn-filter">
-                  filter by: &nbsp;
-                  <select>
-                     <option>All</option>
-                     <option>Pending</option>
-                     <option>Completed</option>
+                  filter by status: &nbsp;
+                  <select onChange={(e) => onSearchByStatus(e.target.value)}>
+                     <option value="">All</option>
+                     <option value="Pending">Pending</option>
+                     <option value="Completed">Completed</option>
                   </select>
                 </span>
             </div>
@@ -73,7 +86,7 @@ const Home = ({ history, flows, addFlow, deleteFlow, toggleStatus }) => {
             </div>
         </div>
         <div className="flows-container">
-            {switchArray(filterList, flows).map((item, index) => (
+            {switchArray(filterList, flows, isFiltered).map((item, index) => (
                 <Flow
                   key={index}
                   {...item}
@@ -81,6 +94,10 @@ const Home = ({ history, flows, addFlow, deleteFlow, toggleStatus }) => {
                   onStatusUpdate={toggleStatus}
                   onGo={(id) => history.push(`/flow/${id}`)}/>
             ))}
+            {isFiltered && filterList.length === 0
+              && <div className="alert alert-warning" role="alert" style={{ marginLeft: '16px'}}>
+                  No workflow found !
+            </div>}
         </div>  
     </div>;
 }

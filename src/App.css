@@ -6,11 +6,6 @@
   cursor: pointer;
 }
 
-.round::before {
-  margin-left: 8px;
-  line-height: 1.8;
-}
-
 .completed {
   background-color: rgb(138, 243, 138);
 }
@@ -18,6 +13,8 @@
 .completed::before {
   content: '\f00c';
   font-family: FontAwesome;
+  line-height: 1.8;
+  margin-left: 7px;
 }
 
 .completed:hover {
@@ -38,7 +35,9 @@
 }
 
 .progress::before {
+  margin-left: 10px;
   content: '\f021';
   font-family: FontAwesome;
+  line-height: 2.5;
 }
 
