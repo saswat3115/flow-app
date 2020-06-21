@@ -45,11 +45,12 @@ const Flows = ({ match, history, flowTitle, nodes, addNode,
                 deleteNode(match?.params.id);
               }
             }}>Delete</button>
+            <button className="btn btn-primary" onClick={() => history.push('/home')}>Save</button>
           </div>
         </div>
       </div>
       <div>
-        <p className="task-hint">Click in title/content of task card to edit</p>
+        <p className="task-hint"><b>NOTE: </b>Click in title/content of task card to edit. Content/Titles are auto save on edit</p>
       </div>
       <div className="node-container">
         {nodes.map((item, index) => (
